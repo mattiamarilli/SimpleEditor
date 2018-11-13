@@ -12,14 +12,17 @@ namespace SimpleEditor
 {
     public partial class Form1 : Form
     {
+        TextLeggiScrivi tls;
         public Form1()
         {
             InitializeComponent();
+            tls = new TextLeggiScrivi();
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
-
+            tls.ApriFile();
+            txtPercorso.Text = tls.getPercorso();
         }
 
         private void btnSalva_Click(object sender, EventArgs e)
@@ -30,6 +33,27 @@ namespace SimpleEditor
         private void btnIndenta_Click(object sender, EventArgs e)
         {
 
+        }
+    }
+
+    class TextLeggiScrivi
+    {
+        OpenFileDialog ofd;
+
+        public TextLeggiScrivi()
+        {
+            ofd = new OpenFileDialog();
+        }
+
+        public void ApriFile()
+        {
+            ofd.ShowDialog();
+            
+        }
+
+        public string getPercorso()
+        {
+            return ofd.FileName;
         }
     }
 }
