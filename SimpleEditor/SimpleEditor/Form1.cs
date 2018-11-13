@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace SimpleEditor
         {
             tls.ApriFile();
             txtPercorso.Text = tls.getPercorso();
+            rTxtBody.Text = tls.getText();
         }
 
         private void btnSalva_Click(object sender, EventArgs e)
@@ -48,12 +50,18 @@ namespace SimpleEditor
         public void ApriFile()
         {
             ofd.ShowDialog();
-            
         }
 
         public string getPercorso()
         {
             return ofd.FileName;
+        }
+
+        public string getText()
+        {
+            var ofdStream = ofd.OpenFile();
+            var streamReader = new StreamReader(ofdStream);
+            return streamReader.ReadToEnd();
         }
     }
 }
