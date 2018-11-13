@@ -45,6 +45,7 @@
             this.btnOpenFile.TabIndex = 0;
             this.btnOpenFile.Text = "Apri file";
             this.btnOpenFile.UseVisualStyleBackColor = true;
+            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
             // txtPercorso
             // 
@@ -78,6 +79,7 @@
             this.btnSalva.TabIndex = 4;
             this.btnSalva.Text = "Salva";
             this.btnSalva.UseVisualStyleBackColor = true;
+            this.btnSalva.Click += new System.EventHandler(this.btnSalva_Click);
             // 
             // btnIndenta
             // 
@@ -87,6 +89,7 @@
             this.btnIndenta.TabIndex = 5;
             this.btnIndenta.Text = "Indenta";
             this.btnIndenta.UseVisualStyleBackColor = true;
+            this.btnIndenta.Click += new System.EventHandler(this.btnIndenta_Click);
             // 
             // label2
             // 

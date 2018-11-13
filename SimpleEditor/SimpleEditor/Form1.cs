@@ -16,5 +16,20 @@ namespace SimpleEditor
         {
             InitializeComponent();
         }
+
+        private void btnOpenFile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSalva_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnIndenta_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
