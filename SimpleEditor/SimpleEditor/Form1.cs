@@ -29,24 +29,37 @@ namespace SimpleEditor
 				txtPercorso.Text = temp;
 				rTxtBody.Text = tls.ReadFile();
 			}
-			
-        }
+		}
 
-        private void btnSalva_Click(object sender, EventArgs e)
+		private void btnChiudiFile_Click(object sender, EventArgs e)
+		{
+			tls.ChiudiFile();
+			txtPercorso.Text = "";
+		}
+
+		private void btnSalva_Click(object sender, EventArgs e)
         {
 			var temp = tls.Save(rTxtBody.Text);
 			if (temp != "")
 			{
 				txtPercorso.Text = temp;
 			}
-        }
+		}
 
-        private void btnIndenta_Click(object sender, EventArgs e)
+		private void btnSalvaConNome_Click(object sender, EventArgs e)
+		{
+			var temp = tls.SaveAs(rTxtBody.Text);
+			if (temp != "")
+			{
+				txtPercorso.Text = temp;
+			}
+		}
+
+		private void btnIndenta_Click(object sender, EventArgs e)
         {
-			tls.ChiudiFile();
-			txtPercorso.Text = "";
+			
         }
-    }
+	}
 
 	class TextLeggiScrivi
 	{
