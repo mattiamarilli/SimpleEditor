@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace SimpleEditor
 {
-    public partial class Form1 : Form
+    public partial class Form_Editor : Form
     {
         TextLeggiScrivi tls;
 
-        public Form1()
+        public Form_Editor()
         {
             InitializeComponent();
             tls = new TextLeggiScrivi();
@@ -59,6 +59,22 @@ namespace SimpleEditor
         {
 			
         }
+
+		private void Editor_SizeChanged(object sender, EventArgs e)
+		{
+			var x = rTxtBody.Size;
+			x.Width = this.Width - 40;
+			x.Height = this.Height - 145;
+			rTxtBody.Size = x;
+			// 488; 223 RTXTBOX
+			// 528; 368 FORM
+			// 368 - 223 = 145
+			// 528 - 488 = 40
+
+			var y = txtPercorso.Size;
+			y.Width = this.Width - 99;
+			txtPercorso.Size = y;
+		}
 	}
 
 	class TextLeggiScrivi

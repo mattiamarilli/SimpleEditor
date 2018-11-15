@@ -1,6 +1,6 @@
 ﻿namespace SimpleEditor
 {
-    partial class Form1
+    partial class Form_Editor
     {
         /// <summary>
         /// Variabile di progettazione necessaria.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Editor));
 			this.btnOpenFile = new System.Windows.Forms.Button();
 			this.txtPercorso = new System.Windows.Forms.TextBox();
 			this.rTxtBody = new System.Windows.Forms.RichTextBox();
@@ -51,24 +51,24 @@
 			// 
 			// txtPercorso
 			// 
-			this.txtPercorso.Location = new System.Drawing.Point(79, 11);
+			this.txtPercorso.Location = new System.Drawing.Point(70, 11);
 			this.txtPercorso.Name = "txtPercorso";
 			this.txtPercorso.ReadOnly = true;
-			this.txtPercorso.Size = new System.Drawing.Size(508, 20);
+			this.txtPercorso.Size = new System.Drawing.Size(430, 20);
 			this.txtPercorso.TabIndex = 1;
 			// 
 			// rTxtBody
 			// 
 			this.rTxtBody.Location = new System.Drawing.Point(12, 93);
 			this.rTxtBody.Name = "rTxtBody";
-			this.rTxtBody.Size = new System.Drawing.Size(575, 223);
+			this.rTxtBody.Size = new System.Drawing.Size(488, 223);
 			this.rTxtBody.TabIndex = 2;
 			this.rTxtBody.Text = "";
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(12, 11);
+			this.label1.Location = new System.Drawing.Point(12, 14);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(52, 13);
 			this.label1.TabIndex = 3;
@@ -97,7 +97,7 @@
 			// btnSalvaConNome
 			// 
 			this.btnSalvaConNome.Location = new System.Drawing.Point(305, 54);
-			this.btnSalvaConNome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnSalvaConNome.Margin = new System.Windows.Forms.Padding(2);
 			this.btnSalvaConNome.Name = "btnSalvaConNome";
 			this.btnSalvaConNome.Size = new System.Drawing.Size(98, 23);
 			this.btnSalvaConNome.TabIndex = 6;
@@ -108,7 +108,7 @@
 			// btnChiudiFile
 			// 
 			this.btnChiudiFile.Location = new System.Drawing.Point(106, 54);
-			this.btnChiudiFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnChiudiFile.Margin = new System.Windows.Forms.Padding(2);
 			this.btnChiudiFile.Name = "btnChiudiFile";
 			this.btnChiudiFile.Size = new System.Drawing.Size(75, 24);
 			this.btnChiudiFile.TabIndex = 7;
@@ -116,11 +116,11 @@
 			this.btnChiudiFile.UseVisualStyleBackColor = true;
 			this.btnChiudiFile.Click += new System.EventHandler(this.btnChiudiFile_Click);
 			// 
-			// Form1
+			// Form_Editor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(610, 337);
+			this.ClientSize = new System.Drawing.Size(512, 329);
 			this.Controls.Add(this.btnChiudiFile);
 			this.Controls.Add(this.btnSalvaConNome);
 			this.Controls.Add(this.btnIndenta);
@@ -130,8 +130,10 @@
 			this.Controls.Add(this.txtPercorso);
 			this.Controls.Add(this.btnOpenFile);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "Form1";
+			this.MinimumSize = new System.Drawing.Size(528, 368);
+			this.Name = "Form_Editor";
 			this.Text = "EDITOR";
+			this.SizeChanged += new System.EventHandler(this.Editor_SizeChanged);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
