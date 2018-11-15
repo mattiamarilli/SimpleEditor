@@ -132,7 +132,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(528, 368);
 			this.Name = "Form_Editor";
-			this.Text = "EDITOR";
+			this.Text = "Simple Editor";
 			this.SizeChanged += new System.EventHandler(this.Editor_SizeChanged);
 			this.ResumeLayout(false);
 			this.PerformLayout();
