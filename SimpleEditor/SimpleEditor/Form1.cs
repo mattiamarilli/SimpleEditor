@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -55,11 +56,6 @@ namespace SimpleEditor
 			}
 		}
 
-		private void btnIndenta_Click(object sender, EventArgs e)
-        {
-			
-        }
-
 		private void Editor_SizeChanged(object sender, EventArgs e)
 		{
 			var x = rTxtBody.Size;
@@ -74,6 +70,55 @@ namespace SimpleEditor
 			var y = txtPercorso.Size;
 			y.Width = this.Width - 99;
 			txtPercorso.Size = y;
+		}
+
+		private void btnIndenta_Click(object sender, EventArgs e)
+		{
+			// start xml:	(<[^/])
+			// end xml:		([</])([/>])
+			// start json:	({)
+			// end json:	(})
+			string patternStart = @"({)";
+			string patternEnd = @"(})";
+			// creating a matrix with all the values
+			var y = rTxtBody.Text.Split('\n');
+			List<string> table = new List<string>();
+			int countTab = 0;
+			foreach(string x in y)
+			{
+				var row = x.Trim();
+				//both
+				if (Regex.Match(row, patternStart).Success && Regex.Match(row, patternEnd).Success)
+				{
+					table.Add(string.Concat(Enumerable.Repeat("        ", countTab)) + row);
+				}
+				//end
+				else if (Regex.Match(row, patternEnd).Success) {
+					countTab = countTab == 0 ? 0 : (countTab -1);
+					table.Add(string.Concat(Enumerable.Repeat("        ", countTab)) + row);
+				}
+				//start
+				else if (Regex.Match(row, patternStart).Success) {
+					table.Add(string.Concat(Enumerable.Repeat("        ", countTab)) + row);
+					countTab++;
+				}
+				//normale
+				else
+				{
+					table.Add(string.Concat(Enumerable.Repeat("        ", countTab)) + row);
+				}
+
+				table.Add("\n");
+			}
+			//cleanup
+			List<string> tableCleanup = new List<string>();
+			foreach(string x in table)
+			{
+				var word = Regex.Replace(x,"                ", "\t");
+				tableCleanup.Add(word);
+			}
+			var text = string.Join("", tableCleanup.ToArray());
+			rTxtBody.Text = text;
 		}
 	}
 
