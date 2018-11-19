@@ -14,21 +14,22 @@ namespace SimpleEditor
 {
     public partial class Form_Editor : Form
     {
-        TextLeggiScrivi tls;
-		bool changed = false;
+        TextLeggiScrivi tls; // classe con metodi per gestire file.
+		bool changed = false; // controllo se l'area di lavoro è stata modificata.
+        string patternStart = @"({)"; // default "indenta" setting.
+        string patternEnd = @"(})"; // default "indenta" setting.
 
-        string patternStart = @"({)";
-        string patternEnd = @"(})";
-
-        public Form_Editor()
+		// costruttore
+		public Form_Editor()
         {
             InitializeComponent();
             tls = new TextLeggiScrivi();
         }
 
+		// Aprire file
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
-			if (changed)
+			if (changed) // SE è stata appilacata una modifica alla area di lavoro: chiedi.
 			{
 				if (MessageBox.Show("Vuoi uscire senza salvare?", "Attenzione:", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
 				{
@@ -41,7 +42,7 @@ namespace SimpleEditor
 					changed = false;
 				}
 			}
-			else
+			else // altrimenti apri.
 			{
 				var temp = tls.ApriFile();
 				if (temp != "")
@@ -53,10 +54,11 @@ namespace SimpleEditor
 			}
 		}
 
+		// Chiudere file
 		private void btnChiudiFile_Click(object sender, EventArgs e)
 		{
 			tls.ChiudiFile();
-			if (changed)
+			if (changed)  // SE è stata appilacata una modifica alla area di lavoro: chiedi.
 			{
 				if (MessageBox.Show("Vuoi uscire senza salvare?", "Attenzione:", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
 				{
@@ -65,7 +67,7 @@ namespace SimpleEditor
 					changed = false;
 				}
 			}
-			else
+			else // altrimenti chiudi.
 			{
 				rTxtBody.Text = "";
 				txtPercorso.Text = "";
@@ -73,6 +75,7 @@ namespace SimpleEditor
 			}
 		}
 
+		// Salva
 		private void btnSalva_Click(object sender, EventArgs e)
         {
 			var temp = tls.Save(rTxtBody.Text);
@@ -80,45 +83,48 @@ namespace SimpleEditor
 			{
 				txtPercorso.Text = temp;
 			}
-			if (changed)
+			if (changed)  // SE è stata appilacata una modifica alla area di lavoro: allora adesso puoi rimuovere il segno
 				txtPercorso.Text = txtPercorso.Text.Remove(txtPercorso.Text.Length - 1);
 			changed = false;
 		}
 
+		// Salva con nome
 		private void btnSalvaConNome_Click(object sender, EventArgs e)
 		{
 			var temp = tls.SaveAs(rTxtBody.Text);
 			if (temp != "")
 			{
 				txtPercorso.Text = temp;
-				if (changed)
+				if (changed)  // SE è stata appilacata una modifica alla area di lavoro: allora adesso puoi rimuovere il segno
 					txtPercorso.Text = txtPercorso.Text.Remove(txtPercorso.Text.Length - 1);
 			}
 			changed = false;
 		}
 
+		// Dynamic rTextBox e Path txtbox re-size
 		private void Editor_SizeChanged(object sender, EventArgs e)
 		{
-			var x = rTxtBody.Size;
-			x.Width = this.Width - 40;
-			x.Height = this.Height - 144;
-			rTxtBody.Size = x;
 			// 598; 224 RTXTBOX
 			// 638; 368 FORM
 			// 368 - 223 = 144
 			// 528 - 488 = 40
-
+			var x = rTxtBody.Size;
+			x.Width = this.Width - 40;
+			x.Height = this.Height - 144;
+			rTxtBody.Size = x;
 			var y = txtPercorso.Size;
 			y.Width = this.Width - 99;
 			txtPercorso.Size = y;
 		}
 
+		// Feature indenta w/ regex
 		private void btnIndenta_Click(object sender, EventArgs e)
 		{
 			// start xml:	(<[^/])
 			// end xml:		([</])([/>])
 			// start json:	({)
 			// end json:	(})
+
 			// creating a matrix with all the values
 			var y = rTxtBody.Text.Split('\n');
 			List<string> table = new List<string>();
@@ -160,12 +166,15 @@ namespace SimpleEditor
 			rTxtBody.Text = text;
 		}
 
+		// Se l'area di lavoro ha ricevuto una modifica per una 2-step chiusura del file
+		// Si aggiunge un segnetto al percorso per indicare la presenza di un cambiamento (*)
 		private void rTxtBody_TextChanged(object sender, EventArgs e)
 		{
 			if (!changed) { txtPercorso.Text += "*"; }
 			changed = true;
 		}
 
+		// Scelta opzione formato per indentazione.
         private void rBttJson_CheckedChanged(object sender, EventArgs e)
         {
             if (rBttJson.Checked == true)
@@ -181,24 +190,33 @@ namespace SimpleEditor
         }
     }
 
+	// Classe gestione file
     class TextLeggiScrivi
 	{
-		private OpenFileDialog ofd;
+		private OpenFileDialog ofd; // Contiene informazioni sul file aperto come perscorso e dati.
 
+		// Costruttore
 		public TextLeggiScrivi() {
 			ofd = new OpenFileDialog();
 		}
 
+		// OPEN
 		public string ApriFile()
 		{
-			if( ofd.ShowDialog() != DialogResult.OK ) { return ""; }
+			// aprirà un dialogo che chiede di indicare il file desiderato.
+			if ( ofd.ShowDialog() != DialogResult.OK ) { return ""; }
 			return ofd.FileName;
 		}
 
+		// CLOSE
 		public void ChiudiFile() {
+			// Deselezione del file scelto in precedenza
 			ofd = new OpenFileDialog();
 		}
 
+		// READ
+		// return: 
+		//		i byte del file in una stringa leggibile.
 		public string ReadFile()
 		{
 			StreamReader sr = new StreamReader(ofd.FileName);
@@ -207,6 +225,10 @@ namespace SimpleEditor
 			return text;
 		}
 
+		// SAVE
+		// return:
+		//		ritorna o nulla (per indicare che l'operazione è andata a buon fine)
+		//		oppure il risultato di saveAs in caso non cera nessun file selezionato in precedenza.
 		public string Save(string text)
 		{
 			try
@@ -221,6 +243,9 @@ namespace SimpleEditor
 			}
 		}
 
+		// SAVE AS
+		// return:
+		//		Il nuovo percorso del file creato.
 		public string SaveAs(string text)
 		{
 			SaveFileDialog sfd = new SaveFileDialog();
