@@ -64,6 +64,7 @@
 			this.rTxtBody.Size = new System.Drawing.Size(488, 223);
 			this.rTxtBody.TabIndex = 2;
 			this.rTxtBody.Text = "";
+			this.rTxtBody.TextChanged += new System.EventHandler(this.rTxtBody_TextChanged);
 			// 
 			// label1
 			// 

@@ -15,6 +15,7 @@ namespace SimpleEditor
     public partial class Form_Editor : Form
     {
         TextLeggiScrivi tls;
+		bool changed = false;
 
         public Form_Editor()
         {
@@ -24,18 +25,49 @@ namespace SimpleEditor
 
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
-			var temp = tls.ApriFile();
-			if (temp != "")
+			if (changed)
 			{
-				txtPercorso.Text = temp;
-				rTxtBody.Text = tls.ReadFile();
+				if (MessageBox.Show("Vuoi uscire senza salvare?", "Attenzione:", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+				{
+					var temp = tls.ApriFile();
+					if (temp != "")
+					{
+						rTxtBody.Text = tls.ReadFile();
+						txtPercorso.Text = temp;
+					}
+					changed = false;
+				}
+			}
+			else
+			{
+				var temp = tls.ApriFile();
+				if (temp != "")
+				{
+					rTxtBody.Text = tls.ReadFile();
+					txtPercorso.Text = temp;
+				}
+				changed = false;
 			}
 		}
 
 		private void btnChiudiFile_Click(object sender, EventArgs e)
 		{
 			tls.ChiudiFile();
-			txtPercorso.Text = "";
+			if (changed)
+			{
+				if (MessageBox.Show("Vuoi uscire senza salvare?", "Attenzione:", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+				{
+					rTxtBody.Text = "";
+					txtPercorso.Text = "";
+					changed = false;
+				}
+			}
+			else
+			{
+				rTxtBody.Text = "";
+				txtPercorso.Text = "";
+				changed = false;
+			}
 		}
 
 		private void btnSalva_Click(object sender, EventArgs e)
@@ -45,6 +77,9 @@ namespace SimpleEditor
 			{
 				txtPercorso.Text = temp;
 			}
+			if (changed)
+				txtPercorso.Text = txtPercorso.Text.Remove(txtPercorso.Text.Length - 1);
+			changed = false;
 		}
 
 		private void btnSalvaConNome_Click(object sender, EventArgs e)
@@ -53,7 +88,10 @@ namespace SimpleEditor
 			if (temp != "")
 			{
 				txtPercorso.Text = temp;
+				if (changed)
+					txtPercorso.Text = txtPercorso.Text.Remove(txtPercorso.Text.Length - 1);
 			}
+			changed = false;
 		}
 
 		private void Editor_SizeChanged(object sender, EventArgs e)
@@ -78,8 +116,8 @@ namespace SimpleEditor
 			// end xml:		([</])([/>])
 			// start json:	({)
 			// end json:	(})
-			string patternStart = @"({)";
-			string patternEnd = @"(})";
+			string patternStart = @"(<[^/])";
+			string patternEnd = @"([</])([/>])";
 			// creating a matrix with all the values
 			var y = rTxtBody.Text.Split('\n');
 			List<string> table = new List<string>();
@@ -119,6 +157,12 @@ namespace SimpleEditor
 			}
 			var text = string.Join("", tableCleanup.ToArray());
 			rTxtBody.Text = text;
+		}
+
+		private void rTxtBody_TextChanged(object sender, EventArgs e)
+		{
+			if (!changed) { txtPercorso.Text += "*"; }
+			changed = true;
 		}
 	}
 
