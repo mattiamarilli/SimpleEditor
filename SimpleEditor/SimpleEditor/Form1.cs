@@ -101,11 +101,11 @@ namespace SimpleEditor
 		{
 			var x = rTxtBody.Size;
 			x.Width = this.Width - 40;
-			x.Height = this.Height - 145;
+			x.Height = this.Height - 144;
 			rTxtBody.Size = x;
-			// 488; 223 RTXTBOX
-			// 528; 368 FORM
-			// 368 - 223 = 145
+			// 598; 224 RTXTBOX
+			// 638; 368 FORM
+			// 368 - 223 = 144
 			// 528 - 488 = 40
 
 			var y = txtPercorso.Size;
