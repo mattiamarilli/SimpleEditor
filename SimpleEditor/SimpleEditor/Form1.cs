@@ -17,6 +17,9 @@ namespace SimpleEditor
         TextLeggiScrivi tls;
 		bool changed = false;
 
+        string patternStart = @"({)";
+        string patternEnd = @"(})";
+
         public Form_Editor()
         {
             InitializeComponent();
@@ -116,8 +119,6 @@ namespace SimpleEditor
 			// end xml:		([</])([/>])
 			// start json:	({)
 			// end json:	(})
-			string patternStart = @"(<[^/])";
-			string patternEnd = @"([</])([/>])";
 			// creating a matrix with all the values
 			var y = rTxtBody.Text.Split('\n');
 			List<string> table = new List<string>();
@@ -164,9 +165,23 @@ namespace SimpleEditor
 			if (!changed) { txtPercorso.Text += "*"; }
 			changed = true;
 		}
-	}
 
-	class TextLeggiScrivi
+        private void rBttJson_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rBttJson.Checked == true)
+            {
+                patternStart = @"({)";
+                patternEnd = @"(})";
+            }
+            else if(rBttXml.Checked == true)
+            {
+                patternStart = @"(<[^/])";
+                patternEnd = @"([</])([/>])";
+            }
+        }
+    }
+
+    class TextLeggiScrivi
 	{
 		private OpenFileDialog ofd;
 
