@@ -79,26 +79,22 @@ namespace SimpleEditor
 		private void btnSalva_Click(object sender, EventArgs e)
         {
 			var temp = tls.Save(rTxtBody.Text);
-			if (temp != "")
+			if (temp != "Error")
 			{
 				txtPercorso.Text = temp;
+				changed = false;
 			}
-			if (changed)  // SE è stata appilacata una modifica alla area di lavoro: allora adesso puoi rimuovere il segno
-				txtPercorso.Text = txtPercorso.Text.Remove(txtPercorso.Text.Length - 1);
-			changed = false;
 		}
 
 		// Salva con nome
 		private void btnSalvaConNome_Click(object sender, EventArgs e)
 		{
 			var temp = tls.SaveAs(rTxtBody.Text);
-			if (temp != "")
+			if (temp != "Error")
 			{
 				txtPercorso.Text = temp;
-				if (changed)  // SE è stata appilacata una modifica alla area di lavoro: allora adesso puoi rimuovere il segno
-					txtPercorso.Text = txtPercorso.Text.Remove(txtPercorso.Text.Length - 1);
+				changed = false;
 			}
-			changed = false;
 		}
 
 		// Dynamic rTextBox e Path txtbox re-size
@@ -236,7 +232,7 @@ namespace SimpleEditor
 				StreamWriter sw = new StreamWriter(ofd.FileName);
 				sw.Write(text);
 				sw.Close();
-				return "";
+				return ofd.FileName;
 			} catch(Exception ex)
 			{
 				return SaveAs(text);
@@ -249,7 +245,7 @@ namespace SimpleEditor
 		public string SaveAs(string text)
 		{
 			SaveFileDialog sfd = new SaveFileDialog();
-			if (sfd.ShowDialog() != DialogResult.OK) { return ""; }
+			if (sfd.ShowDialog() != DialogResult.OK) { return "Error"; }
 			var path = File.Create(sfd.FileName);
 			StreamWriter sw = new StreamWriter(path);
 			sw.WriteLine(text);
