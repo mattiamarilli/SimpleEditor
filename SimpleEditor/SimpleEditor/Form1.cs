@@ -45,12 +45,16 @@ namespace SimpleEditor
                 }
             }
 
+
             richTextBox1.Clear();
             for (int i= 0; i<count;i++)
             {
                 richTextBox1.Text = richTextBox1.Text + (i + 1).ToString() + "\r\n";
                 
             }
+
+            richTextBox1.SelectionStart = count - 1;
+            richTextBox1.ScrollToCaret();
         }
 		// Aprire file
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -217,7 +221,7 @@ namespace SimpleEditor
 
         private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
-            rTxtBody.SelectionStart = vScrollBar1.Value;
+            rTxtBody.SelectionStart = vScrollBar1.Value + 1;
             rTxtBody.ScrollToCaret();
             richTextBox1.SelectionStart = vScrollBar1.Value;
             richTextBox1.ScrollToCaret();
