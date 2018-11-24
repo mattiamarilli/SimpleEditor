@@ -28,33 +28,20 @@ namespace SimpleEditor
 
         public void contarighe()
         {
-            int count = 1;
-            int len = rTxtBody.Text.Length;
-            for (int i = 0; i != len; ++i)
-            {
-                switch (rTxtBody.Text[i])
-                {
-                    case '\r':
-                        ++count;
-                        if (i + 1 != len && rTxtBody.Text[i + 1] == '\n')
-                            ++i;
-                        break;
-                    case '\n':
-                        ++count;
-                        break;
-                }
-            }
-
-
+            var count = rTxtBody.Lines.Count();
             richTextBox1.Clear();
-            for (int i= 0; i<count;i++)
+            string all = "";
+            for (int i = 1; i < count + 1; i++)
             {
-                richTextBox1.Text = richTextBox1.Text + (i + 1).ToString() + "\r\n";
-                
+                all += i + "\n";
             }
+            richTextBox1.Text += all;
 
-            richTextBox1.SelectionStart = count - 1;
+            richTextBox1.SelectionStart = count + 1;
             richTextBox1.ScrollToCaret();
+
+
+            vScrollBar1.Value = count;
         }
 		// Aprire file
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -201,8 +188,7 @@ namespace SimpleEditor
 
             this.contarighe();
 
-
-		}
+        }
 
 		// Scelta opzione formato per indentazione.
         private void rBttJson_CheckedChanged(object sender, EventArgs e)
@@ -221,7 +207,7 @@ namespace SimpleEditor
 
         private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
-            rTxtBody.SelectionStart = vScrollBar1.Value + 1;
+            rTxtBody.SelectionStart = vScrollBar1.Value;
             rTxtBody.ScrollToCaret();
             richTextBox1.SelectionStart = vScrollBar1.Value;
             richTextBox1.ScrollToCaret();
