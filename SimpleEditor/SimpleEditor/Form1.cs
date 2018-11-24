@@ -69,6 +69,8 @@ namespace SimpleEditor
 				}
 				changed = false;
 			}
+
+            this.contarighe();
 		}
 
 		// Chiudere file
