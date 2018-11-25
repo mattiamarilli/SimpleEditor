@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Editor));
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.txtPercorso = new System.Windows.Forms.TextBox();
-            this.rTxtBody = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSalva = new System.Windows.Forms.Button();
             this.btnIndenta = new System.Windows.Forms.Button();
@@ -39,15 +39,17 @@
             this.btnChiudiFile = new System.Windows.Forms.Button();
             this.rBttJson = new System.Windows.Forms.RadioButton();
             this.rBttXml = new System.Windows.Forms.RadioButton();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.numberedRTB1 = new AboControls.UserControls.NumberedRTB();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOpenFile
             // 
-            this.btnOpenFile.Location = new System.Drawing.Point(12, 53);
+            this.btnOpenFile.Location = new System.Drawing.Point(16, 65);
+            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenFile.Size = new System.Drawing.Size(100, 28);
             this.btnOpenFile.TabIndex = 0;
             this.btnOpenFile.Text = "Apri file";
             this.btnOpenFile.UseVisualStyleBackColor = true;
@@ -55,37 +57,29 @@
             // 
             // txtPercorso
             // 
-            this.txtPercorso.Location = new System.Drawing.Point(70, 11);
+            this.txtPercorso.Location = new System.Drawing.Point(93, 14);
+            this.txtPercorso.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPercorso.Name = "txtPercorso";
             this.txtPercorso.ReadOnly = true;
-            this.txtPercorso.Size = new System.Drawing.Size(540, 20);
+            this.txtPercorso.Size = new System.Drawing.Size(719, 22);
             this.txtPercorso.TabIndex = 1;
-            // 
-            // rTxtBody
-            // 
-            this.rTxtBody.AcceptsTab = true;
-            this.rTxtBody.Location = new System.Drawing.Point(35, 94);
-            this.rTxtBody.Name = "rTxtBody";
-            this.rTxtBody.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rTxtBody.Size = new System.Drawing.Size(580, 223);
-            this.rTxtBody.TabIndex = 2;
-            this.rTxtBody.Text = "";
-            this.rTxtBody.TextChanged += new System.EventHandler(this.rTxtBody_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 14);
+            this.label1.Location = new System.Drawing.Point(16, 17);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.Size = new System.Drawing.Size(69, 17);
             this.label1.TabIndex = 3;
             this.label1.Text = "Percorso:";
             // 
             // btnSalva
             // 
-            this.btnSalva.Location = new System.Drawing.Point(208, 54);
+            this.btnSalva.Location = new System.Drawing.Point(277, 66);
+            this.btnSalva.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSalva.Name = "btnSalva";
-            this.btnSalva.Size = new System.Drawing.Size(75, 23);
+            this.btnSalva.Size = new System.Drawing.Size(100, 28);
             this.btnSalva.TabIndex = 4;
             this.btnSalva.Text = "Salva";
             this.btnSalva.UseVisualStyleBackColor = true;
@@ -93,9 +87,10 @@
             // 
             // btnIndenta
             // 
-            this.btnIndenta.Location = new System.Drawing.Point(425, 54);
+            this.btnIndenta.Location = new System.Drawing.Point(567, 66);
+            this.btnIndenta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnIndenta.Name = "btnIndenta";
-            this.btnIndenta.Size = new System.Drawing.Size(75, 23);
+            this.btnIndenta.Size = new System.Drawing.Size(100, 28);
             this.btnIndenta.TabIndex = 5;
             this.btnIndenta.Text = "Indenta";
             this.btnIndenta.UseVisualStyleBackColor = true;
@@ -103,10 +98,10 @@
             // 
             // btnSalvaConNome
             // 
-            this.btnSalvaConNome.Location = new System.Drawing.Point(305, 54);
-            this.btnSalvaConNome.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSalvaConNome.Location = new System.Drawing.Point(407, 66);
+            this.btnSalvaConNome.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSalvaConNome.Name = "btnSalvaConNome";
-            this.btnSalvaConNome.Size = new System.Drawing.Size(98, 23);
+            this.btnSalvaConNome.Size = new System.Drawing.Size(131, 28);
             this.btnSalvaConNome.TabIndex = 6;
             this.btnSalvaConNome.Text = "Salva con nome";
             this.btnSalvaConNome.UseVisualStyleBackColor = true;
@@ -114,10 +109,10 @@
             // 
             // btnChiudiFile
             // 
-            this.btnChiudiFile.Location = new System.Drawing.Point(106, 54);
-            this.btnChiudiFile.Margin = new System.Windows.Forms.Padding(2);
+            this.btnChiudiFile.Location = new System.Drawing.Point(141, 66);
+            this.btnChiudiFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChiudiFile.Name = "btnChiudiFile";
-            this.btnChiudiFile.Size = new System.Drawing.Size(75, 24);
+            this.btnChiudiFile.Size = new System.Drawing.Size(100, 30);
             this.btnChiudiFile.TabIndex = 7;
             this.btnChiudiFile.Text = "Chiudi file";
             this.btnChiudiFile.UseVisualStyleBackColor = true;
@@ -126,10 +121,10 @@
             // rBttJson
             // 
             this.rBttJson.AutoSize = true;
-            this.rBttJson.Location = new System.Drawing.Point(514, 58);
-            this.rBttJson.Margin = new System.Windows.Forms.Padding(2);
+            this.rBttJson.Location = new System.Drawing.Point(685, 71);
+            this.rBttJson.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rBttJson.Name = "rBttJson";
-            this.rBttJson.Size = new System.Drawing.Size(53, 17);
+            this.rBttJson.Size = new System.Drawing.Size(66, 21);
             this.rBttJson.TabIndex = 8;
             this.rBttJson.Text = "JSON";
             this.rBttJson.UseVisualStyleBackColor = true;
@@ -138,39 +133,30 @@
             // rBttXml
             // 
             this.rBttXml.AutoSize = true;
-            this.rBttXml.Location = new System.Drawing.Point(568, 58);
-            this.rBttXml.Margin = new System.Windows.Forms.Padding(2);
+            this.rBttXml.Location = new System.Drawing.Point(757, 71);
+            this.rBttXml.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rBttXml.Name = "rBttXml";
-            this.rBttXml.Size = new System.Drawing.Size(47, 17);
+            this.rBttXml.Size = new System.Drawing.Size(57, 21);
             this.rBttXml.TabIndex = 9;
             this.rBttXml.Text = "XML";
             this.rBttXml.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
+            // numberedRTB1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 94);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richTextBox1.Size = new System.Drawing.Size(25, 223);
-            this.richTextBox1.TabIndex = 10;
-            this.richTextBox1.Text = "";
-            // 
-            // vScrollBar1
-            // 
-            this.vScrollBar1.Location = new System.Drawing.Point(616, 94);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(17, 223);
-            this.vScrollBar1.TabIndex = 11;
-            this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
+            this.numberedRTB1.BackColor = System.Drawing.SystemColors.Window;
+            this.numberedRTB1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.numberedRTB1.Location = new System.Drawing.Point(19, 118);
+            this.numberedRTB1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numberedRTB1.Name = "numberedRTB1";
+            this.numberedRTB1.Size = new System.Drawing.Size(795, 275);
+            this.numberedRTB1.TabIndex = 10;
             // 
             // Form_Editor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 330);
-            this.Controls.Add(this.vScrollBar1);
-            this.Controls.Add(this.richTextBox1);
+            this.ClientSize = new System.Drawing.Size(828, 406);
+            this.Controls.Add(this.numberedRTB1);
             this.Controls.Add(this.rBttXml);
             this.Controls.Add(this.rBttJson);
             this.Controls.Add(this.btnChiudiFile);
@@ -178,14 +164,15 @@
             this.Controls.Add(this.btnIndenta);
             this.Controls.Add(this.btnSalva);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.rTxtBody);
             this.Controls.Add(this.txtPercorso);
             this.Controls.Add(this.btnOpenFile);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(638, 368);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(845, 442);
             this.Name = "Form_Editor";
             this.Text = "Simple Editor";
             this.SizeChanged += new System.EventHandler(this.Editor_SizeChanged);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,7 +182,6 @@
 
         private System.Windows.Forms.Button btnOpenFile;
         private System.Windows.Forms.TextBox txtPercorso;
-        private System.Windows.Forms.RichTextBox rTxtBody;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSalva;
         private System.Windows.Forms.Button btnIndenta;
@@ -203,8 +189,8 @@
         private System.Windows.Forms.Button btnChiudiFile;
         private System.Windows.Forms.RadioButton rBttJson;
         private System.Windows.Forms.RadioButton rBttXml;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.VScrollBar vScrollBar1;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private AboControls.UserControls.NumberedRTB numberedRTB1;
     }
 }
 

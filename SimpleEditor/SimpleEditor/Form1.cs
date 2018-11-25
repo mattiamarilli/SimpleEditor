@@ -26,23 +26,7 @@ namespace SimpleEditor
             tls = new TextLeggiScrivi();
         }
 
-        public void contarighe()
-        {
-            var count = rTxtBody.Lines.Count();
-            richTextBox1.Clear();
-            string all = "";
-            for (int i = 1; i < count + 1; i++)
-            {
-                all += i + "\n";
-            }
-            richTextBox1.Text += all;
-
-            richTextBox1.SelectionStart = count + 1;
-            richTextBox1.ScrollToCaret();
-
-
-            vScrollBar1.Value = count;
-        }
+       
 		// Aprire file
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
@@ -53,7 +37,7 @@ namespace SimpleEditor
 					var temp = tls.ApriFile();
 					if (temp != "")
 					{
-						rTxtBody.Text = tls.ReadFile();
+						numberedRTB1.RichTextBox.Text = tls.ReadFile();
 						txtPercorso.Text = temp;
 					}
 					changed = false;
@@ -64,13 +48,12 @@ namespace SimpleEditor
 				var temp = tls.ApriFile();
 				if (temp != "")
 				{
-					rTxtBody.Text = tls.ReadFile();
+                    numberedRTB1.RichTextBox.Text = tls.ReadFile();
 					txtPercorso.Text = temp;
 				}
 				changed = false;
 			}
 
-            this.contarighe();
 		}
 
 		// Chiudere file
@@ -81,14 +64,14 @@ namespace SimpleEditor
 			{
 				if (MessageBox.Show("Vuoi uscire senza salvare?", "Attenzione:", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
 				{
-					rTxtBody.Text = "";
+                    numberedRTB1.RichTextBox.Text = "";
 					txtPercorso.Text = "";
 					changed = false;
 				}
 			}
 			else // altrimenti chiudi.
 			{
-				rTxtBody.Text = "";
+                numberedRTB1.RichTextBox.Text = "";
 				txtPercorso.Text = "";
 				changed = false;
 			}
@@ -97,7 +80,7 @@ namespace SimpleEditor
 		// Salva
 		private void btnSalva_Click(object sender, EventArgs e)
         {
-			var temp = tls.Save(rTxtBody.Text);
+			var temp = tls.Save(numberedRTB1.RichTextBox.Text);
 			if (temp != "Error")
 			{
 				txtPercorso.Text = temp;
@@ -108,7 +91,7 @@ namespace SimpleEditor
 		// Salva con nome
 		private void btnSalvaConNome_Click(object sender, EventArgs e)
 		{
-			var temp = tls.SaveAs(rTxtBody.Text);
+			var temp = tls.SaveAs(numberedRTB1.RichTextBox.Text);
 			if (temp != "Error")
 			{
 				txtPercorso.Text = temp;
@@ -123,10 +106,10 @@ namespace SimpleEditor
 			// 638; 368 FORM
 			// 368 - 223 = 144
 			// 528 - 488 = 40
-			var x = rTxtBody.Size;
+			var x = numberedRTB1.RichTextBox.Size;
 			x.Width = this.Width - 40;
 			x.Height = this.Height - 144;
-			rTxtBody.Size = x;
+            numberedRTB1.RichTextBox.Size = x;
 			var y = txtPercorso.Size;
 			y.Width = this.Width - 99;
 			txtPercorso.Size = y;
@@ -141,7 +124,7 @@ namespace SimpleEditor
 			// end json:	(})
 
 			// creating a matrix with all the values
-			var y = rTxtBody.Text.Split('\n');
+			var y = numberedRTB1.RichTextBox.Text.Split('\n');
 			List<string> table = new List<string>();
 			int countTab = 0;
 			foreach(string x in y)
@@ -178,17 +161,15 @@ namespace SimpleEditor
 				tableCleanup.Add(word);
 			}
 			var text = string.Join("", tableCleanup.ToArray());
-			rTxtBody.Text = text;
+            numberedRTB1.RichTextBox.Text = text;
 		}
 
 		// Se l'area di lavoro ha ricevuto una modifica per una 2-step chiusura del file
 		// Si aggiunge un segnetto al percorso per indicare la presenza di un cambiamento (*)
-		private void rTxtBody_TextChanged(object sender, EventArgs e)
+		private void numberedRTB_TextChanged(object sender, EventArgs e)
 		{
 			if (!changed) { txtPercorso.Text += "*"; }
 			changed = true;
-
-            this.contarighe();
 
         }
 
@@ -207,13 +188,6 @@ namespace SimpleEditor
             }
         }
 
-        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
-        {
-            rTxtBody.SelectionStart = vScrollBar1.Value;
-            rTxtBody.ScrollToCaret();
-            richTextBox1.SelectionStart = vScrollBar1.Value;
-            richTextBox1.ScrollToCaret();
-        }
     }
 
     // Classe gestione file
